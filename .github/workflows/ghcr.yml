@@ -20,7 +20,6 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
-          cache: npm
       - run: npm install
       - run: npm test
 
@@ -42,3 +41,5 @@ jobs:
           tags: |
             ${{ env.IMAGE }}:latest
             ${{ env.IMAGE }}:${{ github.sha }}
+          # Make package visible for MicroK8s pulls without a secret when possible
+          provenance: false
