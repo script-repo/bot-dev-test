@@ -3,15 +3,29 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>bot-dev-test</title>
+  <title>bot-dev-test · Avatar</title>
   <link rel="stylesheet" href="/styles.css" />
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+    }
+  }
+  </script>
 </head>
 <body>
-  <main class="card">
-    <p class="eyebrow">script-repo / bot-dev-test</p>
-    <h1>Harness online</h1>
-    <p>Simple web app for Grok build → Codex evals → GHCR → Flux/MicroK8s NodePort.</p>
-    <p class="meta">Health: <code>GET /health</code></p>
-  </main>
+  <div id="app">
+    <canvas id="stage" aria-label="3D avatar. Click to hear hello world."></canvas>
+    <div class="hud">
+      <p class="eyebrow">script-repo / bot-dev-test</p>
+      <p class="hint">Click the avatar to speak</p>
+    </div>
+    <div id="captions" class="captions" aria-live="polite">
+      <span class="captions-full"></span>
+      <span class="captions-word"></span>
+    </div>
+  </div>
+  <script type="module" src="/avatar.js"></script>
 </body>
 </html>

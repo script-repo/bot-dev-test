@@ -16,7 +16,7 @@ function get(port, path) {
     http.get({ host: '127.0.0.1', port, path }, (res) => {
       let body = '';
       res.on('data', (c) => { body += c; });
-      res.on('end', () => resolve({ status: res.statusCode, body }));
+      res.on('end', () => resolve({ status: res.statusCode, body, headers: res.headers }));
     }).on('error', reject);
   });
 }
@@ -34,13 +34,28 @@ describe('bot-dev-test', () => {
     }
   });
 
-  it('GET / returns HTML', async () => {
+  it('GET / serves avatar page', async () => {
     const server = http.createServer(app);
     const port = await listen(server);
     try {
       const res = await get(port, '/');
       assert.equal(res.status, 200);
-      assert.match(res.body, /Harness online/);
+      assert.match(res.body, /avatar\.js/);
+      assert.match(res.body, /three/);
+      assert.match(res.body, /captions/);
+    } finally {
+      server.close();
+    }
+  });
+
+  it('GET /avatar.js is served', async () => {
+    const server = http.createServer(app);
+    const port = await listen(server);
+    try {
+      const res = await get(port, '/avatar.js');
+      assert.equal(res.status, 200);
+      assert.match(res.body, /Hello world/);
+      assert.match(res.body, /speechSynthesis/);
     } finally {
       server.close();
     }
