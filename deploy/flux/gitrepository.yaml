@@ -1,0 +1,10 @@
+apiVersion: source.toolkit.fluxcd.io/v1
+kind: GitRepository
+metadata:
+  name: bot-dev-test
+  namespace: flux-system
+spec:
+  interval: 1m
+  url: https://github.com/script-repo/bot-dev-test
+  ref:
+    branch: main
